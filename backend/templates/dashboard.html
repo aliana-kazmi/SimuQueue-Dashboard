@@ -1,0 +1,87 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+    {% block stylesheets %}
+    <!-- ChartJS -->
+    <script src="https://cdnjs.com/libraries/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Simple Datatables -->
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+    {% endblock stylesheets %}
+
+    {% block content %}
+        <div class="my-3 mx-3">
+          <h1>Dashboard</h1>
+          <div class="d-flex">
+
+          <div class="col-6 mx-2 card">
+            <div class="card-body">
+              <h5 class="card-title text-primary">Average time taken</h5>
+              <h6 class="card-subtitle mb-2 text-muted">for Cardiology Dept</h6>
+              <div class="">
+                <canvas id="avg-time-patients-chart"></canvas>
+              </div>
+              <h1 class="card-text text-end">{{ avg_time_patients }}</h1>
+            </div>
+          </div>
+
+          <div class="col-5 mx-2 card">
+            <div class="card-body">
+              <h5 class="card-title text-primary">No. of departments</h5>
+              <!-- <h6 class="card-subtitle mb-2 text-muted">for all depts</h6> -->
+              <div class="">
+                <canvas id="avg-time-depts-chart"></canvas>
+              </div>
+              <h1 class="card-text text-end">{{ no_of_depts }}</h1>
+            </div>
+          </div>
+          
+      </div>
+    </div>
+    
+    {% endblock content %}
+
+    {% block scripts %}
+    <script>
+      
+const avgSimulationPatientChart = document.getElementById('avg-time-patients-chart');
+new Chart(avgSimulationPatientChart, {
+  type: 'line',
+  data: {
+    labels: ['50', '60', '70', '80', '90', '100'],
+    datasets: [{
+    label: 'Avg. waiting time(in min)',
+    data: [40, 59, 80, 91, 110, 127, 65],
+    fill: false,
+    borderColor: 'rgb(75, 192, 192)',
+    tension: 0.1
+    }]
+  },
+});
+
+    </script>
+    <script>
+      
+  const avgSimulationDeptChart = document.getElementById('avg-time-depts-chart');
+  new Chart(avgSimulationDeptChart, {
+    type: 'bar',
+    data: {
+      labels: ['Cardiology', 'Radiology', 'Neurology', 'ENT'],
+      datasets: [{
+        label: 'Avg waiting time',
+        data: [60, 125, 53, 41.7],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+    </script>
+    <script src="{% static '/dashboard/js/index.js' %}"></script>
+    {% endblock scripts %}

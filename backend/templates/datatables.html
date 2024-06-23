@@ -1,0 +1,36 @@
+{% extends "layouts/base.html" %}
+
+    {% block stylesheets %}
+    <!-- Simple Datatables -->
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+    {% endblock stylesheets %}
+
+    {% block content %}
+    
+    <div class="my-3 mx-3">
+        <h1>Data Table</h1>
+      <div class="container">
+        <table id="simulation-table">
+
+        </table>
+      </div>
+    </div>
+
+   {% endblock content %}
+
+   {% block scripts %}
+  <script>
+    const dataTable = new simpleDatatables.DataTable("#simulation-table", {
+        searchable: true,
+        fixedHeight: true,
+        data: {
+          headings:["Queue Implemented", "Dept","Patients Simulated","Average Waiting time per patient"],
+        }
+    })
+
+    dataTable.rows.add([
+
+    ])
+  </script>
+{% endblock scripts %}
